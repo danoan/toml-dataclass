@@ -1,0 +1,10 @@
+.venv
+*__pycache__*
+*.egg-info
+dev/**/output
+.tox
+.coverage
+docs/_build
+docs/reference
+docs/Makefile
+docs/make.bat
