@@ -31,10 +31,6 @@ Source = "https://github.com/danoan/toml-dataclass"
 
 
 # -------------------- build backend --------------------
-[tools.setuptools]
-include-package-data = true
-
-
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["danoan*"]
