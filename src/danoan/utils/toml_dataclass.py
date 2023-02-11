@@ -5,8 +5,12 @@ Manipulate toml and Python dataclass interchangeably.
 
 """
 import copy
+from functools import singledispatchmethod
+from pathlib import Path
+from io import TextIOBase
 import toml
-from typing import Any, Dict, Optional, TextIO, TypeVar, Type
+from typing import Any, Dict, Optional, TextIO, TypeVar, Type, Union
+from warnings import warn
 
 
 class TomlDataClassIO:
@@ -16,52 +20,71 @@ class TomlDataClassIO:
 
     T = TypeVar("T", bound="TomlDataClassIO")
 
+    @singledispatchmethod
     @classmethod
-    def read(cls: Type[T], filepath: str) -> Optional[T]:
+    def read(cls: Type[T], source) -> Optional[T]:
         """
         Create an instance of the derived class from a toml file.
 
         Args:
-            filepath: Path to a toml file.
+            source: A filepath or an input stream.
 
         Returns:
             Instance of the type of cls.
         """
+        raise ValueError(f"Unsupported source format: {source}")
+
+    @read.register(str)
+    @read.register(Path)
+    @classmethod
+    def _(cls: Type[T], filepath: Union[str, Path]) -> Optional[T]:
         with open(filepath, "r") as f:
-            return cls.read_stream(f)
+            return cls.read(f)
         return None
+
+    @read.register(TextIOBase)
+    @classmethod
+    def _(cls: Type[T], stream_in: TextIO) -> Optional[T]:
+        d = toml.load(stream_in)
+        return cls._from_dict(d)
+
+    @singledispatchmethod
+    def write(self, target):
+        """
+        Write the dataclass as a toml file.
+
+        Args:
+            target: A filepath or an output stream.
+        """
+        raise ValueError(f"Unsupported target format: {target}")
+
+    @write.register(str)
+    @write.register(Path)
+    def _(self, filepath: Union[str, Path]):
+        with open(filepath, "w") as f:
+            self.write(f)
+
+    def _(self, filepath: Path):
+        return self.write(str(filepath))
+
+    @write.register(TextIOBase)
+    def _(self, stream_out: TextIO):
+        toml.dump(self._as_dict(), stream_out)
 
     @classmethod
     def read_stream(cls: Type[T], stream_in: TextIO) -> T:
         """
-        Create an instance of the derived class from a toml file.
-
-        Args:
-            stream_in: Stream object serving toml data.
-
-        Returns:
-            Instance of the type of cls.
+        Deprecated. Use `read` instead.
         """
+        warn('This method is deprecated.', DeprecationWarning, stacklevel=2)
         d = toml.load(stream_in)
         return cls._from_dict(d)
 
-    def write(self, filepath: str):
-        """
-        Write the dataclass as a toml file.
-
-        Args:
-            filepath: Path to the output toml file.
-        """
-        with open(filepath, "w") as f:
-            self.write_stream(f)
-
     def write_stream(self, stream_out: TextIO):
         """
-        Write the dataclass as a toml file.
-
-        Args:
-            stream_out: Stream object where the toml string is output.
+        Deprecated. Use `write` instead.
         """
+        warn('This method is deprecated.', DeprecationWarning, stacklevel=2)
         toml.dump(self._as_dict(), stream_out)
 
     @classmethod
