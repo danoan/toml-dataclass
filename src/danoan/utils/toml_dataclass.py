@@ -1,8 +1,10 @@
 """
-toml_dataclass.py
-
 Manipulate toml and Python dataclass interchangeably.
 
+Classes:
+    TomlDataClassIO: Base class for non-tabular toml data.
+
+    TomlTableDataClassIO: Base class for tabular toml data.
 """
 import copy
 from functools import singledispatchmethod
@@ -16,6 +18,10 @@ from warnings import warn
 class TomlDataClassIO:
     """
     Base class for a simple dataclass (i.e. with no mapping types)
+
+    Methods:
+        read: Instantiate an object from a stream object or path to a toml file.
+        write: Write toml data.
     """
 
     T = TypeVar("T", bound="TomlDataClassIO")
@@ -73,18 +79,14 @@ class TomlDataClassIO:
 
     @classmethod
     def read_stream(cls: Type[T], stream_in: TextIO) -> T:
-        """
-        Deprecated. Use `read` instead.
-        """
-        warn('This method is deprecated.', DeprecationWarning, stacklevel=2)
+        """Deprecated. Use `read` instead."""
+        warn("This method is deprecated.", DeprecationWarning, stacklevel=2)
         d = toml.load(stream_in)
         return cls._from_dict(d)
 
     def write_stream(self, stream_out: TextIO):
-        """
-        Deprecated. Use `write` instead.
-        """
-        warn('This method is deprecated.', DeprecationWarning, stacklevel=2)
+        """Deprecated. Use `write` instead."""
+        warn("This method is deprecated.", DeprecationWarning, stacklevel=2)
         toml.dump(self._as_dict(), stream_out)
 
     @classmethod
@@ -165,6 +167,13 @@ class TomlDataClassIO:
 
 
 class TomlTableDataClassIO(TomlDataClassIO):
+    """
+    Base class for a dataclass with a list object (e.g. List[AnotherTomlDataClassIO])
+
+    The exposed methods of TomlTableDataClassIO are the same of TomlDataClassIO.
+    What differs both classes are the implementation of internal methods.
+    """
+
     T = TypeVar("T", bound="TomlDataClassIO")
 
     @classmethod
