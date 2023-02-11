@@ -40,10 +40,10 @@ def test_read_write_stream_toml_data_class_io(tmp_path):
 
     toml_filepath = tmp_path.joinpath("plugin.toml")
     with open(toml_filepath, "w") as f:
-        original_p.write_stream(f)
+        original_p.write(f)
 
     with open(toml_filepath, "r") as f:
-        loaded_p = Plugin.read_stream(f)
+        loaded_p = Plugin.read(f)
 
     assert loaded_p == original_p
 
@@ -68,10 +68,10 @@ def test_read_write_stream_toml_table_data_class_io(tmp_path):
     toml_filepath = tmp_path.joinpath("list-of-plugins.toml")
 
     with open(toml_filepath, "w") as f:
-        original_list_of_plugins.write_stream(f)
+        original_list_of_plugins.write(f)
 
     with open(toml_filepath, "r") as f:
-        loaded_list_of_plugins = PluginTable.read_stream(f)
+        loaded_list_of_plugins = PluginTable.read(f)
 
     assert loaded_list_of_plugins == original_list_of_plugins
 
