@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - staging
 
 
 jobs:
@@ -51,7 +54,7 @@ jobs:
     - name: Type check
       run: |
         tox -e typecheck
-  run-tests: 
+  run-tests:
     runs-on: ubuntu-latest
     needs: setup-venv
     steps:
