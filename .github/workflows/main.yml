@@ -6,7 +6,6 @@ on:
       - master
       - dev/v??.??.??
 
-
 jobs:
   setup-venv:
     runs-on: ubuntu-latest
