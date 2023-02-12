@@ -6,11 +6,40 @@
 Welcome to toml-dataclass's documentation!
 ==========================================
 
+Seamless integration between toml and Python dataclasses.
+
+Start here
+================
+.. toctree::
+   :maxdepth: 1
+
+   getting-started
+
+
+How-to guides
+=============
+
+.. toctree::
+   :maxdepth: 1
+
+   how-to/task-manager
+
+    
+Reference guides
+================
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
    reference/modules
+
+
+Explanation
+===========
+
+.. toctree::
+   :maxdepth: 2
+
 
 Indices and tables
 ==================
