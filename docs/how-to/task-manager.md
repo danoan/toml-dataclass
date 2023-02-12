@@ -78,8 +78,8 @@ do that, we need the `TomlTableClassIO`.
 ... class TaskTable(TomlTableDataClassIO):
 ...     list_of_tasks: List[Task]
 
->>> t1 = Task("init-service", datetime.datetime.fromtimestamp(1676194367.101537).isoformat(), "init-service.sh" )
->>> t2 = Task("run-tests", datetime.datetime.fromtimestamp(1676194367.101537).isoformat(), "run-tests.sh")
+>>> t1 = Task("init-service", datetime.datetime.fromtimestamp(1676194367.101537, datetime.timezone.utc).isoformat(), "init-service.sh" )
+>>> t2 = Task("run-tests", datetime.datetime.fromtimestamp(1676194367.101537, datetime.timezone.utc).isoformat(), "run-tests.sh")
 >>> TaskTable([t1,t2]).write("task-table.toml")
 
 ```
@@ -91,10 +91,10 @@ stream in write mode. To read the table, we use the method `read`.
 >>> task_table = TaskTable.read("task-table.toml")
 >>> pprint(task_table)
 TaskTable(list_of_tasks=[Task(name='init-service',
-                              creation_date='2023-02-12T10:32:47.101537',
+creation_date='2023-02-12T09:32:47.101537+00:00',
                               command='init-service.sh'),
                          Task(name='run-tests',
-                              creation_date='2023-02-12T10:32:47.101537',
+                         creation_date='2023-02-12T09:32:47.101537+00:00',
                               command='run-tests.sh')])
 
 ```
