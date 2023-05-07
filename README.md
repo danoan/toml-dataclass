@@ -1,10 +1,6 @@
 # Toml Dataclass
 
-Interchangeable representation between toml and Python dataclass.
-
-## Features
-
-- Empower your dataclass with toml representation
+Toml and Python Dataclass serialization.
 
 ## Examples
 
