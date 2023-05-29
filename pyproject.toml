@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "toml-dataclass"
-version = "0.0.1"
+version = "0.1.0"
 description = "Interchangeable representation between toml and Python dataclass"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -63,13 +63,13 @@ pythonpath = [
 # coverage.exceptions.DataError: Can't combine line data with arc data
 branch = false  
 source = [
-    "danoan.utils"
+    "danoan"
 ]
 
 [tool.coverage.paths]
 source = [
-  "src/danoan/utils",
-  "*/site-packages/danoan/utils"
+  "src/danoan",
+  "*/site-packages/danoan"
 ]
 
 [tool.coverage.report]

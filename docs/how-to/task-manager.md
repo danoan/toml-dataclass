@@ -9,7 +9,7 @@ the default folder where to store tasks.
 
 
 ``` python
->>> from danoan.utils.toml_dataclass import TomlDataClassIO
+>>> from danoan.toml_dataclass import TomlDataClassIO
 
 >>> import io
 >>> from dataclasses import dataclass
@@ -71,7 +71,7 @@ Next, let us register some tasks and store them in a toml table. In order to
 do that, we need the `TomlTableClassIO`.
 
 ```python
->>> from danoan.utils.toml_dataclass import TomlTableDataClassIO
+>>> from danoan.toml_dataclass import TomlTableDataClassIO
 >>> from typing import List
 
 >>> @dataclass
@@ -80,7 +80,8 @@ do that, we need the `TomlTableClassIO`.
 
 >>> t1 = Task("init-service", datetime.datetime.fromtimestamp(1676194367.101537, datetime.timezone.utc).isoformat(), "init-service.sh" )
 >>> t2 = Task("run-tests", datetime.datetime.fromtimestamp(1676194367.101537, datetime.timezone.utc).isoformat(), "run-tests.sh")
->>> TaskTable([t1,t2]).write("task-table.toml")
+>>> with open("task-table.toml", "w") as fw:
+...     TaskTable([t1,t2]).write(fw)
 
 ```
 
@@ -88,7 +89,8 @@ Notive that we passed the filepath to the `write` method. This will open a file
 stream in write mode. To read the table, we use the method `read`.
 
 ```python
->>> task_table = TaskTable.read("task-table.toml")
+>>> with open("task-table.toml", "r") as fr:
+...     task_table = TaskTable.read(fr)
 >>> pprint(task_table)
 TaskTable(list_of_tasks=[Task(name='init-service',
 creation_date='2023-02-12T09:32:47.101537+00:00',
