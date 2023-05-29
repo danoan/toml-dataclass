@@ -6,7 +6,7 @@
 Welcome to toml-dataclass's documentation!
 ==========================================
 
-Seamless integration between toml and Python dataclasses.
+Toml and Python Dataclass serialization.
 
 Start here
 ================
@@ -31,7 +31,7 @@ Reference guides
 .. toctree::
    :maxdepth: 2
 
-   reference/modules
+   reference/toml_dataclass
 
 
 Explanation
