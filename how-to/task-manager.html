@@ -12,16 +12,15 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="utils" href="../reference/modules.html" />
+    <link rel="next" title="toml_dataclass module" href="../reference/toml_dataclass.html" />
     <link rel="prev" title="Getting started with toml_dataclass" href="../getting-started.html" /> 
 </head>
 
@@ -58,7 +57,7 @@
 </li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../reference/modules.html">utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/toml_dataclass.html">toml_dataclass module</a></li>
 </ul>
 
         </div>
@@ -92,7 +91,7 @@
 <h2>System Configuration File<a class="headerlink" href="#system-configuration-file" title="Permalink to this heading"></a></h2>
 <p>We start by creating a configuration file that stores information such as
 the default folder where to store tasks.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">danoan.utils.toml_dataclass</span> <span class="kn">import</span> <span class="n">TomlDataClassIO</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">danoan.toml_dataclass</span> <span class="kn">import</span> <span class="n">TomlDataClassIO</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">io</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
@@ -144,7 +143,7 @@ an instance of the corresponding Python object.</p>
 </div>
 <p>Next, let us register some tasks and store them in a toml table. In order to
 do that, we need the <code class="docutils literal notranslate"><span class="pre">TomlTableClassIO</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">danoan.utils.toml_dataclass</span> <span class="kn">import</span> <span class="n">TomlTableDataClassIO</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">danoan.toml_dataclass</span> <span class="kn">import</span> <span class="n">TomlTableDataClassIO</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
@@ -153,13 +152,15 @@ do that, we need the <code class="docutils literal notranslate"><span class="pre
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="s2">&quot;init-service&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="mf">1676194367.101537</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span> <span class="s2">&quot;init-service.sh&quot;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span> <span class="o">=</span> <span class="n">Task</span><span class="p">(</span><span class="s2">&quot;run-tests&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="mf">1676194367.101537</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span> <span class="s2">&quot;run-tests.sh&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">TaskTable</span><span class="p">([</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">])</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;task-table.toml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;task-table.toml&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fw</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">TaskTable</span><span class="p">([</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">])</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fw</span><span class="p">)</span>
 
 </pre></div>
 </div>
 <p>Notive that we passed the filepath to the <code class="docutils literal notranslate"><span class="pre">write</span></code> method. This will open a file
 stream in write mode. To read the table, we use the method <code class="docutils literal notranslate"><span class="pre">read</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">task_table</span> <span class="o">=</span> <span class="n">TaskTable</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;task-table.toml&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;task-table.toml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fr</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">task_table</span> <span class="o">=</span> <span class="n">TaskTable</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">task_table</span><span class="p">)</span>
 <span class="go">TaskTable(list_of_tasks=[Task(name=&#39;init-service&#39;,</span>
 <span class="go">creation_date=&#39;2023-02-12T09:32:47.101537+00:00&#39;,</span>
@@ -190,7 +191,7 @@ stream in write mode. To read the table, we use the method <code class="docutils
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../getting-started.html" class="btn btn-neutral float-left" title="Getting started with toml_dataclass" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../reference/modules.html" class="btn btn-neutral float-right" title="utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../reference/toml_dataclass.html" class="btn btn-neutral float-right" title="toml_dataclass module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

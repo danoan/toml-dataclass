@@ -1,6 +1,6 @@
 # Getting started with toml_dataclass
 
-`toml_dataclass` is a library that provides seamless integration between toml and Python dataclasses.
+Toml and Python Dataclass serialization.
 
 ## Features
 
@@ -11,7 +11,7 @@
 ### Creating a dataclass with support to toml serialization.
 
 ```python
->>> from danoan.utils.toml_dataclass import TomlDataClassIO
+>>> from danoan.toml_dataclass import TomlDataClassIO
 >>> from dataclasses import dataclass
 
 >>> @dataclass
@@ -22,15 +22,16 @@
 
 
 >>> jpg_plugin = Plugin("image-jpg", "1.0", "Conversion functions to jpg type.")
->>> jpg_plugin.write("jpg-plugin.toml")
+>>> with open("jpg-plugin.toml", "w") as fw:
+...     jpg_plugin.write(fw)
 
 ```
 
 Here it is what it looks like the written toml.
 
 ```python
->>> with open("jpg-plugin.toml", "r") as f:
-...     print(f.read())
+>>> with open("jpg-plugin.toml", "r") as fr:
+...     print(fr.read())
 name = "image-jpg"
 version = "1.0"
 description = "Conversion functions to jpg type." 
@@ -47,9 +48,11 @@ description = "Conversion functions to jpg type."
 ...     plugin: Plugin
 
 >>> config = Configuration("image-reader", jpg_plugin)
->>> config.write("config.toml")
+>>> with open("config.toml", "w") as fw:
+...     config.write(fw)
 
->>> config_from_file = Configuration.read("config.toml")
+>>> with open("config.toml", "r") as fr:
+...     config_from_file = Configuration.read(fr)
 >>> pprint(config_from_file)
 Configuration(project_name='image-reader',
               plugin=Plugin(name='image-jpg',
@@ -76,7 +79,7 @@ Notice how it differs from the ouptut of the `toml` library.
 ### Preserve in-memory representation with toml tables.
 
 ```python
->>> from danoan.utils.toml_dataclass import TomlTableDataClassIO
+>>> from danoan.toml_dataclass import TomlTableDataClassIO
 >>> from typing import List
 
 >>> @dataclass
@@ -85,16 +88,18 @@ Notice how it differs from the ouptut of the `toml` library.
 
 >>> png_plugin = Plugin("image-png", "1.0", "Conversion functions to png type.")
 >>> plugin_table = PluginTable([jpg_plugin, png_plugin])
->>> plugin_table.write("plugin-table.toml")
+>>> with open("plugin-table.toml", "w") as fw:
+...     plugin_table.write(fw)
 
->>> plugin_table_from_file = PluginTable.read("plugin-table.toml")
+>>> with open("plugin-table.toml", "r") as fr:
+...     plugin_table_from_file = PluginTable.read(fr)
 >>> pprint(plugin_table_from_file)
-PluginTable(list_of_plugins=[Plugin(name='image-jpg',
-                                    version='1.0',
+PluginTable(list_of_plugins=[Plugin(name='image-jpg', 
+                                    version='1.0', 
                                     description='Conversion functions to jpg '
-                                                'type.'),
-                             Plugin(name='image-png',
-                                    version='1.0',
+                                                'type.'), 
+                             Plugin(name='image-png', 
+                                    version='1.0', 
                                     description='Conversion functions to png '
                                                 'type.')])
 

@@ -1,0 +1,7 @@
+toml\_dataclass module
+======================
+
+.. automodule:: toml_dataclass
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -12,10 +12,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
@@ -63,7 +62,7 @@
 <li class="toctree-l1"><a class="reference internal" href="how-to/task-manager.html">Task Manager System</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="reference/modules.html">utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/toml_dataclass.html">toml_dataclass module</a></li>
 </ul>
 
         </div>
@@ -92,7 +91,7 @@
              
   <section id="getting-started-with-toml-dataclass">
 <h1>Getting started with toml_dataclass<a class="headerlink" href="#getting-started-with-toml-dataclass" title="Permalink to this heading"></a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">toml_dataclass</span></code> is a library that provides seamless integration between toml and Python dataclasses.</p>
+<p>Toml and Python Dataclass serialization.</p>
 <section id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this heading"></a></h2>
 <ul class="simple">
@@ -103,7 +102,7 @@
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h2>
 <section id="creating-a-dataclass-with-support-to-toml-serialization">
 <h3>Creating a dataclass with support to toml serialization.<a class="headerlink" href="#creating-a-dataclass-with-support-to-toml-serialization" title="Permalink to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">danoan.utils.toml_dataclass</span> <span class="kn">import</span> <span class="n">TomlDataClassIO</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">danoan.toml_dataclass</span> <span class="kn">import</span> <span class="n">TomlDataClassIO</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
@@ -114,13 +113,14 @@
 
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">jpg_plugin</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">(</span><span class="s2">&quot;image-jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span> <span class="s2">&quot;Conversion functions to jpg type.&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">jpg_plugin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;jpg-plugin.toml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;jpg-plugin.toml&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fw</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">jpg_plugin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fw</span><span class="p">)</span>
 
 </pre></div>
 </div>
 <p>Here it is what it looks like the written toml.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;jpg-plugin.toml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;jpg-plugin.toml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fr</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">fr</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 <span class="go">name = &quot;image-jpg&quot;</span>
 <span class="go">version = &quot;1.0&quot;</span>
 <span class="go">description = &quot;Conversion functions to jpg type.&quot; </span>
@@ -137,9 +137,11 @@
 <span class="gp">... </span>    <span class="n">plugin</span><span class="p">:</span> <span class="n">Plugin</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="p">(</span><span class="s2">&quot;image-reader&quot;</span><span class="p">,</span> <span class="n">jpg_plugin</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;config.toml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;config.toml&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fw</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fw</span><span class="p">)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config_from_file</span> <span class="o">=</span> <span class="n">Configuration</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;config.toml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;config.toml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fr</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">config_from_file</span> <span class="o">=</span> <span class="n">Configuration</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">config_from_file</span><span class="p">)</span>
 <span class="go">Configuration(project_name=&#39;image-reader&#39;,</span>
 <span class="go">              plugin=Plugin(name=&#39;image-jpg&#39;,</span>
@@ -164,7 +166,7 @@
 </section>
 <section id="preserve-in-memory-representation-with-toml-tables">
 <h3>Preserve in-memory representation with toml tables.<a class="headerlink" href="#preserve-in-memory-representation-with-toml-tables" title="Permalink to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">danoan.utils.toml_dataclass</span> <span class="kn">import</span> <span class="n">TomlTableDataClassIO</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">danoan.toml_dataclass</span> <span class="kn">import</span> <span class="n">TomlTableDataClassIO</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
@@ -173,16 +175,18 @@
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">png_plugin</span> <span class="o">=</span> <span class="n">Plugin</span><span class="p">(</span><span class="s2">&quot;image-png&quot;</span><span class="p">,</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span> <span class="s2">&quot;Conversion functions to png type.&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plugin_table</span> <span class="o">=</span> <span class="n">PluginTable</span><span class="p">([</span><span class="n">jpg_plugin</span><span class="p">,</span> <span class="n">png_plugin</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plugin_table</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;plugin-table.toml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;plugin-table.toml&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fw</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">plugin_table</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">fw</span><span class="p">)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plugin_table_from_file</span> <span class="o">=</span> <span class="n">PluginTable</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;plugin-table.toml&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;plugin-table.toml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fr</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">plugin_table_from_file</span> <span class="o">=</span> <span class="n">PluginTable</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fr</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">plugin_table_from_file</span><span class="p">)</span>
-<span class="go">PluginTable(list_of_plugins=[Plugin(name=&#39;image-jpg&#39;,</span>
-<span class="go">                                    version=&#39;1.0&#39;,</span>
+<span class="go">PluginTable(list_of_plugins=[Plugin(name=&#39;image-jpg&#39;, </span>
+<span class="go">                                    version=&#39;1.0&#39;, </span>
 <span class="go">                                    description=&#39;Conversion functions to jpg &#39;</span>
-<span class="go">                                                &#39;type.&#39;),</span>
-<span class="go">                             Plugin(name=&#39;image-png&#39;,</span>
-<span class="go">                                    version=&#39;1.0&#39;,</span>
+<span class="go">                                                &#39;type.&#39;), </span>
+<span class="go">                             Plugin(name=&#39;image-png&#39;, </span>
+<span class="go">                                    version=&#39;1.0&#39;, </span>
 <span class="go">                                    description=&#39;Conversion functions to png &#39;</span>
 <span class="go">                                                &#39;type.&#39;)])</span>
 
