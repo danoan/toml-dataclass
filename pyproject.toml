@@ -63,13 +63,13 @@ pythonpath = [
 # coverage.exceptions.DataError: Can't combine line data with arc data
 branch = false  
 source = [
-    "danoan.utils"
+    "danoan"
 ]
 
 [tool.coverage.paths]
 source = [
-  "src/danoan/utils",
-  "*/site-packages/danoan/utils"
+  "src/danoan",
+  "*/site-packages/danoan"
 ]
 
 [tool.coverage.report]
