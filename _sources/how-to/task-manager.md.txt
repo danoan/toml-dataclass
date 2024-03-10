@@ -4,7 +4,7 @@ Let us use the `TomlDataClassIO` and `TomlTableClassIO` to create an interface b
 
 ## System Configuration File
 
-We start by creating a configuration file that stores information such as 
+We start by creating a configuration file that stores information such as
 the default folder where to store tasks.
 
 
@@ -24,7 +24,7 @@ the default folder where to store tasks.
 
 The `TomlDataClassIO` equips their derived classes with the methods `read` and
 `write` that does the interface between in-memory Python objects and toml
-files. 
+files.
 
 We can use the method `write` to store the configuration file.
 
@@ -34,7 +34,7 @@ We can use the method `write` to store the configuration file.
 
 ```
 
-We can use the method `read` to read the contents of the toml file to create 
+We can use the method `read` to read the contents of the toml file to create
 an instance of the corresponding Python object.
 
 ```python
@@ -115,5 +115,3 @@ creation_date = "2023-02-12T10:32:47.101537"
 command = "run-tests.sh"
 
 ```
-
-
