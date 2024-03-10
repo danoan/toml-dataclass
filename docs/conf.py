@@ -12,8 +12,7 @@ from importlib import metadata
 import pathlib
 import sys
 
-source_folder = pathlib.Path(__file__).parents[1].joinpath(
-    "src/danoan").resolve().as_posix()
+source_folder = pathlib.Path(__file__).parents[1].joinpath("src/danoan").resolve().as_posix()
 sys.path.insert(0, source_folder)
 
 # Tell sphinx the package version
