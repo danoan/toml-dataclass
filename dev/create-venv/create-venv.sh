@@ -11,8 +11,8 @@ pushd "${PROJECT_PATH}" > /dev/null
 
 if [[ -d .venv ]]
 then
-  echo ".venv directory exists. Removing it."
-  rm -rf "${PROJECT_PATH}/.venv"
+    echo ".venv directory exists. Removing it."
+    rm -rf "${PROJECT_PATH}/.venv"
 fi
 
 python3 -m venv .venv
@@ -23,4 +23,3 @@ pip install -e .
 pip install build tox black bandit pylint mypy pytest pytest-cov
 
 popd > /dev/null
-

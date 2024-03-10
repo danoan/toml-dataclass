@@ -22,7 +22,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = ["dataclasses", "toml","typing_extensions"] 
+dependencies = ["dataclasses", "toml","typing_extensions"]
 
 [project.urls]
 Documentation = "https://github.com/danoan/toml-dataclass#readme"
@@ -34,7 +34,7 @@ Source = "https://github.com/danoan/toml-dataclass"
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["danoan*"]
-namespaces = true 
+namespaces = true
 
 
 # -------------------- code test --------------------
@@ -43,7 +43,7 @@ namespaces = true
 # is completed: https://docs.pytest.org/en/6.2.x/customize.html
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--cov --strict-markers" 
+addopts = "--cov --strict-markers"
 xfail_strict = true
 testpaths = [
     "tests"
@@ -61,7 +61,7 @@ pythonpath = [
 # executing test_build.py. It is not ideal because it is nice to know which
 # conditional paths in the code I am not covering. The error was:
 # coverage.exceptions.DataError: Can't combine line data with arc data
-branch = false  
+branch = false
 source = [
     "danoan"
 ]
@@ -93,5 +93,3 @@ namespace_packages = true
 check_untyped_defs = true
 ignore_missing_imports = true # libraries without py.typed marker raises an error if this is set to false
 mypy_path = "test" # Such that conftest is imported correctly in test files without errors
-
-
