@@ -13,4 +13,3 @@ Example:
 - v0.1.1
 
 In the example above there are two active development branches: `v0.1.0` and `v0.1.1`.
-

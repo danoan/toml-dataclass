@@ -24,7 +24,7 @@ How-to guides
 
    how-to/task-manager
 
-    
+
 Reference guides
 ================
 
