@@ -12,4 +12,3 @@ pushd "${PROJECT_PATH}" > /dev/null
 rm -rf ${PROJECT_PATH}/docs/reference
 
 popd > /dev/null
-

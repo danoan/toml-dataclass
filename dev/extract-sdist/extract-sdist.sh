@@ -19,6 +19,6 @@ mkdir -p "${EXTRACT_FOLDER}"
 pyproject-build --outdir "${DIST_FOLDER}" .
 
 
-tar -xf "${DIST_FOLDER}/toml-dataclass-0.0.1.tar.gz" -C "${EXTRACT_FOLDER}" 
+tar -xf "${DIST_FOLDER}/toml-dataclass-0.0.1.tar.gz" -C "${EXTRACT_FOLDER}"
 
 popd > /dev/null

@@ -22,9 +22,9 @@ version = release = PACKAGE_VERSION
 # Import read the docs theme
 import sphinx_rtd_theme
 
-project = 'toml-dataclass'
-copyright = '2023, Daniel Martins Antunes'
-author = 'Daniel Martins Antunes'
+project = "toml-dataclass"
+copyright = "2023, Daniel Martins Antunes"
+author = "Daniel Martins Antunes"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -35,18 +35,18 @@ extensions = [
     "sphinx.ext.napoleon",  # NumPy and Google docstring format
     "sphinx.ext.viewcode",  # Source code link at function, class, module documentation
     "sphinx_rtd_theme",  # Read the docs theme,
-    "myst_parser"
+    "myst_parser",
 ]
 
 source_suffix = {
-    '.rst': 'restructuredtext',
-    '.md': 'markdown',
+    ".rst": "restructuredtext",
+    ".md": "markdown",
 }
 
 autodoc_typehints = "both"
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
 

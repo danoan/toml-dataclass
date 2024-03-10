@@ -17,4 +17,3 @@ rm -rf "${PROJECT_PATH}/.tox"
 rm -rf ${PROJECT_PATH}/**/*.egg-info
 
 popd > /dev/null
-
